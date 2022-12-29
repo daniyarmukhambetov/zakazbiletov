@@ -2,10 +2,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from .models import (
     Event,
-    Category
+    Category,
+    Comment
 )
 from .serializers import (
     EventSerializer,
@@ -46,6 +49,19 @@ class EventViewSet(
             return EventListSerializer
         if self.action == 'retrieve':
             return EventSerializer
+
+
+    @action(methods=['post'], detail=False, description="Endpoint for adding comments")
+    def add_comment(self, request, *args, **kwargs):
+        content = request.data.get("content", "")
+        event = request.data.get("event", 0)
+        if content == "" or event == 0:
+            return Response({"message": "invalid request"}, status=400)
+        event = Event.objects.filter(id=event)
+        if not event.exists():
+            return Response({"message": "invalid comment id"}, status=400)
+        Comment.objects.create(content=content, author=request.user, event__id=event)
+        return Response({"message": "ok"})
 
 
 class CategoryViewSet(

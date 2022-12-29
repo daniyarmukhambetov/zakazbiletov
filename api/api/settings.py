@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "users",
     "events",
     "payments",
+    "profiles",
 ]
 
 MIDDLEWARE = [
@@ -101,7 +102,7 @@ DATABASES = {
         'NAME': 'zakazbiletov',
         'USER': 'admin',
         'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

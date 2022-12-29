@@ -33,4 +33,5 @@ urlpatterns = [
     path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger_ui"),
     path("", include("events.urls")),
     path("payments/", include("payments.urls")),
+    path("profiles/", include("profiles.urls")),
 ]

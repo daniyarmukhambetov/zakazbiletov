@@ -33,7 +33,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ["id", "name", "begins_date", "begins_time", "city", "address", "category", "seats", "comments",
-                  "has_bonuses",]
+                  "has_bonuses", ]
 
 
 class CategorySerializer(serializers.ModelSerializer):
